@@ -19,8 +19,7 @@ const AuthProvider = ({ children }) => {
             const res = await response.json();
 
             if (res.error) {
-                console.log(res.error);
-                //throw new Error(res.message);
+                return res.error;
             } else {
                 setUser(res.user);
                 setToken(res.accessToken);
@@ -39,7 +38,27 @@ const AuthProvider = ({ children }) => {
         navigate("/login");
     }
 
-    return <AuthContext.Provider value={{ token, user, handleLogin, handleLogout }} >{children}</AuthContext.Provider>;
+    const handleRegister = async (data) => {
+        try {
+            const response = await fetch('https://api.stationsite.co.uk/user/register', { 
+                method: 'POST',
+                headers: { "Content-Type": "application/json", },
+                body: JSON.stringify(data)
+            });
+    
+            const res = await response.json();
+
+            if (res.error) {
+                return res.error;
+            } else {
+                navigate("/login");
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    return <AuthContext.Provider value={{ token, user, handleLogin, handleLogout, handleRegister }} >{children}</AuthContext.Provider>;
 }
 
 export default AuthProvider;
