@@ -1,5 +1,6 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Message } from 'primereact/message';
 
 const AuthContext = createContext();
 
@@ -19,7 +20,7 @@ const AuthProvider = ({ children }) => {
             const res = await response.json();
 
             if (res.error) {
-                return res.error;
+                return <Message severity="error" text={res.error} className="mb-3 w-full" />;
             } else {
                 setUser(res.user);
                 setToken(res.accessToken);
