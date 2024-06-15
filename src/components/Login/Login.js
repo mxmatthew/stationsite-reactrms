@@ -5,15 +5,17 @@ import { useAuth } from "../../hooks/AuthProvider";
 const Login = () => {
 
     const [input, setInput] = useState({ email: "", password: ""});
+    const [loginResponse, setLoginResponse] = useState();
+
     const auth = useAuth();
 
     const handleSubmitEvent = (e) => {
         e.preventDefault();
-        console.log(e);
+        
         if (input.email !== "" && input.password !== "") {
-          auth.handleLogin(input);
+            auth.handleLogin(input).then(setLoginResponse);
         } else {
-            alert("please provide a valid input");
+            setLoginResponse("please provide a valid input");
         }
       };
 
@@ -24,6 +26,7 @@ const Login = () => {
 
     return (
         <form onSubmit={handleSubmitEvent}>
+            <h3>{loginResponse}</h3>
             <label htmlFor="user-email">Email:</label>
             <input
                 type="email"
