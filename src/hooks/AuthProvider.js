@@ -16,10 +16,11 @@ const AuthProvider = ({ children }) => {
                 body: JSON.stringify(data)
             });
     
-            const res = response.json();
+            const res = await response.json();
 
             if (res.error) {
-                throw new Error(res.message);
+                console.log(res.error);
+                //throw new Error(res.message);
             } else {
                 setUser(res.user);
                 setToken(res.accessToken);
