@@ -5,10 +5,10 @@ import { Message } from 'primereact/message';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [token, setToken] = useState(localStorage.getItem("site") || "");
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+    const [token, setToken] = useState(localStorage.getItem("at") || "");
     const navigate = useNavigate();
-  
+
     const handleLogin = async (data) => {
         try {
             const response = await fetch('https://api.stationsite.co.uk/user/login', { 
@@ -24,7 +24,8 @@ const AuthProvider = ({ children }) => {
             } else {
                 setUser(res.user);
                 setToken(res.accessToken);
-                localStorage.setItem("site", res.accessToken);
+                localStorage.setItem("at", res.accessToken);
+                localStorage.setItem("user", JSON.stringify(res.user));
                 navigate("/");
             }
         } catch(err) {
@@ -36,6 +37,7 @@ const AuthProvider = ({ children }) => {
         setUser(null);
         setToken("");
         localStorage.removeItem("site");
+        localStorage.removeItem("user");
         navigate("/login");
     }
 
