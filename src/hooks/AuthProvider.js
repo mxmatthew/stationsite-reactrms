@@ -1,6 +1,7 @@
 import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Message } from 'primereact/message';
+import StationSite from '../util/StationSite';
 
 const AuthContext = createContext();
 
@@ -26,6 +27,8 @@ const AuthProvider = ({ children }) => {
                 setToken(res.accessToken);
                 localStorage.setItem("at", res.accessToken);
                 localStorage.setItem("user", JSON.stringify(res.user));
+
+                StationSite.GetStationList(user.id).then(localStorage.setItem("stations", res.stations));
                 navigate("/");
             }
         } catch(err) {
