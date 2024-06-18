@@ -1,4 +1,8 @@
 
+
+![Logo](https://cdn.discordapp.com/attachments/1252714335139008532/1252714394723287180/stationsite.png?ex=667338b2&is=6671e732&hm=862247729adf5defca3717585383fb913419996bf239d6985986f94cbe185473&)
+
+
 # StationSite Radio Management System
 
 StationSite RMS is a React App for maintaining radio station data on the StationSite Platform via the [StationSite API](https://github.com/mxmatthew/stationsite-api) 
