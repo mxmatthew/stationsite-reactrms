@@ -2,10 +2,11 @@ import { useAuth } from "../../hooks/AuthProvider";
 import { useState, useEffect } from "react";
 import StationList from '../StationList/StationList';
 import StationSite from '../../util/StationSite';
+import StationCreate  from '../StationCreate/StationCreate'
 
 import { PanelMenu } from 'primereact/panelmenu';
 import { PrimeIcons } from 'primereact/api';
-
+import { OverlayPanel } from 'primereact/overlaypanel';
 
 
 import './Dashboard.css';
@@ -16,6 +17,7 @@ const Dashboard = () => {
     const [stationResults, setStationResults] = useState([]);
     const [stations, setStations] = useState(localStorage.getItem("station") || []);
     const [activeStation, setActiveStation] =  useState(null);
+    const [stationCreateVisible, setStationCreateVisible] = useState(false);
 
     // logout button
     menuItems.push({
@@ -26,6 +28,14 @@ const Dashboard = () => {
         }
     });
     
+    const handleStationCreateClick = (e) => {
+        setStationCreateVisible(true);
+    }
+
+    const handleStationCreateHide = () => {
+        setStationCreateVisible(false);
+    }
+
     return  (
         <div>
             <div className="flex nested-grid">
@@ -33,9 +43,11 @@ const Dashboard = () => {
                     <PanelMenu model={menuItems} className="w-full md:w-20rem p-3"  /> 
                 </nav>
                 <div className="col">
-                 { activeStation ? '' :  <StationList stations={stations}  />}  
+                 { activeStation ? '' :  <StationList stations={stations} onStationCreateClick={handleStationCreateClick} />}  
                 </div>
             </div>
+
+            <StationCreate visible={stationCreateVisible} onHide={handleStationCreateHide}></StationCreate>
         </div>
     )
 }
