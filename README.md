@@ -26,6 +26,7 @@ See `contributing.md` for ways to get started.
 Please adhere to this project's `code of conduct`.
 
 
-## Authors
+## Support
 
-- Matthew T - [@mxmathew](https://www.github.com/mxmatthew) (mail@matthew.mx)
+For support, email mail@matthew.mx or join our [Discord Server](https://discord.gg/cmtFpkhjSv).
+
