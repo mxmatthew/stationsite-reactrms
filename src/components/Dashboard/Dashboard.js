@@ -15,7 +15,7 @@ const Dashboard = () => {
     const auth = useAuth();
     const menuItems = [];
     const [stationResults, setStationResults] = useState([]);
-    const [stations, setStations] = useState(localStorage.getItem("station") || []);
+    const [stations, setStations] = useState(JSON.parse(localStorage.getItem("stations")) || []);
     const [activeStation, setActiveStation] =  useState(null);
     const [stationCreateVisible, setStationCreateVisible] = useState(false);
 
@@ -36,6 +36,14 @@ const Dashboard = () => {
         setStationCreateVisible(false);
     }
 
+    const handleStationCreateRegistered = () => {
+        StationSite.GetStationList().then( (res) => {
+            setStations(res);
+            localStorage.setItem("stations", JSON.stringify(res));
+            setStationCreateVisible(false);
+        });
+    }
+
     return  (
         <div>
             <div className="flex nested-grid">
@@ -47,7 +55,7 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <StationCreate visible={stationCreateVisible} onHide={handleStationCreateHide}></StationCreate>
+            <StationCreate visible={stationCreateVisible} onHide={handleStationCreateHide} onRegistered={handleStationCreateRegistered} ></StationCreate>
         </div>
     )
 }

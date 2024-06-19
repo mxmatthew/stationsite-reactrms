@@ -1,24 +1,40 @@
-
 const StationSite = {
-
     
-    async GetStationList(userId) {
+    async SendRequest(uri, method, body) {
+        const accessToken = await localStorage.getItem("at");
+    
         try {
-            const response = await fetch(`https://api.stationsite.co.uk/user/${userId}/stations`, { 
-                method: 'GET',
-                headers: { "Content-Type": "application/json", }
+            const response = await fetch(uri, { 
+                method: method,
+                headers: { 
+                    "Content-Type": "application/json",
+                    "Authorization": accessToken
+                 },
+                body: body
             });
     
-            const res = await response.json();
-
-            if (res.error) {
-                console.log(res.error);
-            } else {
-                return res.stations;
-            }
+            return await response.json();
         } catch(err) {
             console.log(err);
         }
+    },
+
+    async GetStationList() {
+        const user = JSON.parse(await localStorage.getItem("user"));
+
+        const res = await StationSite.SendRequest(`https://api.stationsite.co.uk/user/${user.id}/stations`, 'GET');
+        
+        if (res.error) {
+            console.log(res.error);
+            return {}
+        } else {
+            return res.stations;
+        }
+    },
+
+    async RegisterStation(data) {
+        const res = await StationSite.SendRequest(`https://api.stationsite.co.uk/station/register`, 'POST', JSON.stringify(data));
+        return res;
     }
     
 }

@@ -5,10 +5,10 @@ import {Button } from 'primereact/button';
 
 const StationList = (props) => {
   return (
-    <div className="grid p-3">
+    <div className="grid p-3 row-gap-2 column-gap-2" >
       {props.stations.map((station) => {
         return (
-          <StationItem key={station.id} />
+          <StationItem key={station.id} station={station} />
         );
       })}
 

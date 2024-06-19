@@ -1,13 +1,30 @@
 
+import { useState } from "react";
+
 import { Dialog } from 'primereact/dialog';
 import {Button } from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
+import { Message } from 'primereact/message';
+import StationSite from '../../util/StationSite';
 
 function StationCreate (props) {
+  const [registerResponse, setRegisterResponse] = useState();
+  const [input, setInput] = useState({});
 
   const handleSaveClick = () => {
-
-    props.onHide();
+    StationSite.RegisterStation(input).then((res) => {
+      if (res.error) {
+        setRegisterResponse(<Message severity="error" text={res.error} className="mb-3 w-full" />)
+      } else {
+        props.onRegistered(res);
+      }
+    });
   }
+
+  const handleInput = (e) => {
+    const {name, value} = e.target;
+    setInput((prev) => ({...prev,[name]: value}));
+}
 
   const stationCreateFooter = () => {
     return (
@@ -20,7 +37,13 @@ function StationCreate (props) {
 
   return (
     <Dialog header="Create New Station" visible={props.visible} style={{ width: '50vw' }} onHide={props.onHide} footer={stationCreateFooter}>
-      
+      {registerResponse}
+
+      <div className="flex flex-column gap-2">
+          <label htmlFor="stationName">Station Name</label>
+          <InputText id="stationName" name="name" onChange={handleInput} />
+      </div>
+
       
     </Dialog>
   );

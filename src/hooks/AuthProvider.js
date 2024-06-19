@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
                 localStorage.setItem("at", res.accessToken);
                 localStorage.setItem("user", JSON.stringify(res.user));
 
-                StationSite.GetStationList(user.id).then(localStorage.setItem("stations", res.stations));
+                StationSite.GetStationList(res.user.id).then( (res) => {localStorage.setItem("stations", JSON.stringify(res)) });
                 navigate("/");
             }
         } catch(err) {
