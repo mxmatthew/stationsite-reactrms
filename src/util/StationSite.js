@@ -21,7 +21,6 @@ const StationSite = {
 
     async GetStationList() {
         const user = JSON.parse(await localStorage.getItem("user"));
-
         const res = await StationSite.SendRequest(`https://api.stationsite.co.uk/user/${user.id}/stations`, 'GET');
         
         if (res.error) {

@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 import { Dialog } from 'primereact/dialog';
-import {Button } from 'primereact/button';
+import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Message } from 'primereact/message';
 import StationSite from '../../util/StationSite';
@@ -24,7 +24,7 @@ function StationCreate (props) {
   const handleInput = (e) => {
     const {name, value} = e.target;
     setInput((prev) => ({...prev,[name]: value}));
-}
+  }
 
   const stationCreateFooter = () => {
     return (
@@ -43,8 +43,6 @@ function StationCreate (props) {
           <label htmlFor="stationName">Station Name</label>
           <InputText id="stationName" name="name" onChange={handleInput} />
       </div>
-
-      
     </Dialog>
   );
 };
