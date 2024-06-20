@@ -8,7 +8,7 @@ const StationList = (props) => {
     <div className="grid p-3 row-gap-2 column-gap-2" >
       {props.stations.map((station) => {
         return (
-          <StationItem key={station.id} station={station} />
+          <StationItem key={station._id} station={station} onStationClick={props.onStationClick} />
         );
       })}
 
