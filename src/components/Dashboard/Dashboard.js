@@ -10,6 +10,8 @@ import { PrimeIcons } from 'primereact/api';
 
 import './Dashboard.css';
 
+import StationSite from '../../util/StationSite';
+
 const Dashboard = () => {
     const auth = useAuth();
     const menuItems = [];
@@ -29,8 +31,6 @@ const Dashboard = () => {
     
     const handleStationCreateClick = (e) => { setStationCreateVisible(true); }
     const handleStationCreateHide = () => { setStationCreateVisible(false); }
-    const handleStationClick = (station) => { setActiveStation(station); }
-    const handleStationChange = (e) => { setActiveStation(stations[e.value.val]); }
 
     const handleStationCreateRegistered = () => {
         StationSite.GetStationList().then( (res) => {
@@ -66,7 +66,6 @@ const Dashboard = () => {
         <div>
             <div className="flex nested-grid">
                 <nav className="col-fixed bg-primary-reverse h-screen" >
-                    { activeStation ? <StationMenu station={activeStation} stationList={stations} onStationChange={handleStationChange} /> : '' }
                     { activeStation ? <StationMenu station={activeStation} stationList={stations} onStationChange={handleStationChange} /> : '' }
                     <PanelMenu model={menuItems} className="w-full md:w-20rem p-3"  /> 
                 </nav>
