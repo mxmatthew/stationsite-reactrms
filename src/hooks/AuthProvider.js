@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
     const handleLogout = () => {
         setUser(null);
         setToken("");
-        localStorage.removeItem("site");
+        localStorage.removeItem("at");
         localStorage.removeItem("user");
         navigate("/login");
     }
