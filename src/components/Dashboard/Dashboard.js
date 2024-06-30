@@ -15,7 +15,7 @@ import StationSite from '../../util/StationSite';
 const Dashboard = () => {
     const auth = useAuth();
     const menuItems = [];
-    const [stations, setStations] = useState( []);
+    const [stations, setStations] = useState([]);
     const [activeStation, setActiveStation] =  useState(null);
     const [stationCreateVisible, setStationCreateVisible] = useState(false);
     const [page, setPage] = useState(null);
